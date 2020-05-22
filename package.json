@@ -1,0 +1,79 @@
+{
+  "name": "validate-image-type",
+  "version": "1.0.0",
+  "description": "Check the image file of a Buffer/Uint8Array that matched expected image MIME-type.",
+  "keywords": [
+    "image",
+    "bufffer",
+    "mime-type",
+    "extension",
+    "validate",
+    "valicator",
+    "png",
+    "jpg",
+    "svg"
+  ],
+  "homepage": "https://github.com/azu/validate-image-type",
+  "bugs": {
+    "url": "https://github.com/azu/validate-image-type/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/azu/validate-image-type.git"
+  },
+  "license": "MIT",
+  "author": "azu",
+  "files": [
+    "bin/",
+    "lib/",
+    "src/"
+  ],
+  "main": "lib/validate-image-type.js",
+  "types": "lib/validate-image-type.d.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "build": "cross-env NODE_ENV=production tsc -p .",
+    "clean": "rimraf lib/",
+    "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,css}\"",
+    "prepublish": "npm run --if-present build",
+    "test": "mocha \"test/**/*.ts\"",
+    "watch": "tsc -p . --watch"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,css}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "prettier": {
+    "printWidth": 120,
+    "singleQuote": false,
+    "tabWidth": 4
+  },
+  "dependencies": {
+    "image-type": "^4.1.0",
+    "is-svg": "^4.2.1",
+    "read-chunk": "^3.2.0"
+  },
+  "devDependencies": {
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^14.0.5",
+    "cross-env": "^7.0.2",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.4",
+    "mocha": "^7.1.2",
+    "prettier": "^2.0.5",
+    "rimraf": "^3.0.2",
+    "ts-node": "^8.10.1",
+    "ts-node-test-register": "^8.0.1",
+    "typescript": "^3.9.3"
+  }
+}
