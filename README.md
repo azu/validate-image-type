@@ -1,4 +1,4 @@
-# validate-image-type
+# validate-image-type [![Actions Status](https://github.com/azu/validate-image-type/workflows/test/badge.svg)](https://github.com/azu/validate-image-type/actions?query=workflow%3A"test")
 
 Check the image file of a Buffer/Uint8Array that matched expected image MIME-type.
 
