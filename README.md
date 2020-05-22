@@ -17,7 +17,7 @@ Install with [npm](https://www.npmjs.com/):
 
 ```ts
 import { validateMIMEType } from "validate-image-type";
-const result = validateMIMEType("./valid.png", {
+const result = validateMIMEType("./image.png", {
     allowMimeTypes: ['image/jpeg', 'image/gif', 'image/png', 'image/svg+xml']
 });
 if (!result.ok) {
