@@ -27,6 +27,10 @@ if (!result.ok) {
 console.log("This image is valid");
 ```
 
+See following document about MimeType.
+
+- https://developer.mozilla.org/docs/Web/HTTP/Basics_of_HTTP/MIME_types
+
 ## Supported file types 
 
 Basic images file types and SVG(`image/svg+xml`).
