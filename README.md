@@ -27,6 +27,12 @@ if (!result.ok) {
 console.log("This image is valid");
 ```
 
+## Supported file types 
+
+Basic images file types and SVG(`image/svg+xml`).
+
+See `image-type`'s [Supported file types](https://github.com/sindresorhus/image-type#supported-file-types)
+
 ## Changelog
 
 See [Releases page](https://github.com/azu/validate-image-type/releases).
