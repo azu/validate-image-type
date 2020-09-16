@@ -37,6 +37,33 @@ Basic images file types and SVG(`image/svg+xml`).
 
 See `image-type`'s [Supported file types](https://github.com/sindresorhus/image-type#supported-file-types)
 
+## Examples
+
+Integration with [Multer](https://github.com/expressjs/multer) middleware.
+
+```
+const multer = require('multer');
+const temp_local_img_dir = path.join(__dirname, `/.temp_local_img_dir`);
+const upload = multer({ dest: temp_local_img_dir });
+app.post(
+  '/upload',
+  upload.single('image'),
+  wrap(async (req, res, next) => {
+    console.log('req.file.path', req.file.path); // non svg extension file path
+    console.log('req.file.originalname', req.file.originalname); // => .svg
+    const validationResult = validateMIMEType(req.file.path, {
+      originalFilename: req.file.originalname,
+      allowMimeTypes: ['image/jpeg', 'image/gif', 'image/png', 'image/svg+xml'],
+    });
+    console.log('validationResult', validationResult);
+    if (!validationResult.ok) {
+      return res.send(400);
+    }
+    // uploading task
+  }),
+);
+```
+
 ## Changelog
 
 See [Releases page](https://github.com/azu/validate-image-type/releases).

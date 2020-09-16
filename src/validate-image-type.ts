@@ -8,6 +8,11 @@ import isSvg from "is-svg";
 
 export type ValidateImageTypeOptions = {
     /**
+     * Original file name
+     * if the `filePath` is temporary random file path, validator use the `originalFilename` instead of `filePath`
+     */
+    originalFilename?: string;
+    /**
      * Allow mime-type lists
      * Example ['image/jpeg', 'image/gif', 'image/png', 'image/svg+xml']
      */
@@ -70,7 +75,7 @@ export function validateMIMEType(filePath: string, options: ValidateImageTypeOpt
     // Handle SVG as special case
     // https://github.com/sindresorhus/is-svg
     const allowSVG = mimeTypes.includes("image/svg+xml");
-    const fileExt = path.extname(filePath);
+    const fileExt = path.extname(options.originalFilename ?? filePath);
     if (allowSVG && fileExt === ".svg") {
         const content = fs.readFileSync(filePath, "utf-8");
         if (!isSvg(content)) {
