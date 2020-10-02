@@ -27,20 +27,23 @@ describe("validate-image-type", function () {
             allowMimeTypes: ["image/png"],
         });
         assert.strictEqual(result.ok, false);
-        assert.strictEqual(result.error?.message, "This buffer is not image");
+        assert.strictEqual(result.error?.message, `This buffer is not supported image. allowMimeTypes: ["image/png"]`);
     });
     it("return an error if the images is not svg", () => {
         const result = validateMIMEType(path.join(__dirname, "fixtures/invalid.svg"), {
             allowMimeTypes: ["image/svg+xml"],
         });
         assert.strictEqual(result.ok, false);
-        assert.strictEqual(result.error?.message, "This file is not svg");
+        assert.strictEqual(result.error?.message, `This file is not svg. allowMimeTypes: ["image/svg+xml"]`);
     });
     it("return an error when the images is not allowed", () => {
         const result = validateMIMEType(path.join(__dirname, "fixtures/valid.png"), {
             allowMimeTypes: [],
         });
         assert.strictEqual(result.ok, false);
-        assert.strictEqual(result.error?.message, "This buffer is disallowed image: image/png");
+        assert.strictEqual(
+            result.error?.message,
+            "This buffer is disallowed image MimeType: image/png, allowMimeTypes: []"
+        );
     });
 });
