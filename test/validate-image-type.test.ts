@@ -22,6 +22,13 @@ describe("validate-image-type", function () {
         });
         assert.ok(result.ok);
     });
+    it("validate svg images without originalFilename", () => {
+        // without .svg
+        const result = validateMIMEType(path.join(__dirname, "fixtures/svg-but-non-svg-ext"), {
+            allowMimeTypes: ["image/svg+xml"],
+        });
+        assert.ok(result.ok);
+    });
     it("return an error if the images is invalid", () => {
         const result = validateMIMEType(path.join(__dirname, "fixtures/invalid.png"), {
             allowMimeTypes: ["image/png"],
