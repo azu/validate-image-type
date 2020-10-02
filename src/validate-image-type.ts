@@ -3,9 +3,9 @@ import imageType from "image-type";
 import readChunk from "read-chunk";
 import isSvg from "is-svg";
 import * as fs from "fs";
-
+const BINARY_READ_LENGTH = 24;
 const isBinary = (buffer: Buffer): boolean => {
-    for (let i = 0; i < 24; i++) {
+    for (let i = 0; i < BINARY_READ_LENGTH; i++) {
         const characterCode = buffer[i];
         if (characterCode === 65533 || characterCode <= 8) {
             return true;
@@ -84,7 +84,7 @@ export function validateBufferMIMEType(buffer: Buffer, options: ValidateImageTyp
  */
 export function validateMIMEType(filePath: string, options: ValidateImageTypeOptions): ValidateImageResult {
     // Use head buffer for performance reason
-    const buffer = readChunk.sync(filePath, 0, 24);
+    const buffer = readChunk.sync(filePath, 0, BINARY_READ_LENGTH);
     if (!isBinary(buffer)) {
         const mimeTypes = options.allowMimeTypes;
         // Handle SVG as special case
