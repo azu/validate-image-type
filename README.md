@@ -2,10 +2,15 @@
 
 Check the image file of a Buffer/Uint8Array that matched expected image MIME-type.
 
-This library check the file content instead of file extensions using following:
+This library check the **file contents** instead of **file extensions** using following:
 
 - [sindresorhus/image-type: Detect the image type of a Buffer/Uint8Array](https://github.com/sindresorhus/image-type)
 - [sindresorhus/is-svg: Check if a string or buffer is SVG](https://github.com/sindresorhus/is-svg)
+
+## Features
+
+- Support various image types: [popular images types](https://github.com/sindresorhus/image-type#supported-file-types) + SVG
+- Reject File Camouflage by checking actual content buffer
 
 ## Install
 
