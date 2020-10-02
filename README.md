@@ -49,8 +49,6 @@ app.post(
   '/upload',
   upload.single('image'),
   wrap(async (req, res, next) => {
-    console.log('req.file.path', req.file.path); // non svg extension file path
-    console.log('req.file.originalname', req.file.originalname); // => .svg
     const validationResult = validateMIMEType(req.file.path, {
       originalFilename: req.file.originalname,
       allowMimeTypes: ['image/jpeg', 'image/gif', 'image/png', 'image/svg+xml'],
