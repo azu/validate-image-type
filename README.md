@@ -53,7 +53,7 @@ const upload = multer({ dest: temp_local_img_dir });
 app.post(
   '/upload',
   upload.single('image'),
-  wrap(async (req, res, next) => {
+  (req, res, next) => {
     const validationResult = validateMIMEType(req.file.path, {
       originalFilename: req.file.originalname,
       allowMimeTypes: ['image/jpeg', 'image/gif', 'image/png', 'image/svg+xml'],
@@ -63,7 +63,8 @@ app.post(
       return res.send(400);
     }
     // uploading task
-  }),
+    // ...
+  }
 );
 ```
 
