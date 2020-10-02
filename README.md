@@ -24,7 +24,7 @@ if (!result.ok) {
     console.error(result.error);
     return;
 }
-console.log("This image is valid");
+console.log("This image is supported!");
 ```
 
 See following document about MimeType.
@@ -41,7 +41,7 @@ See `image-type`'s [Supported file types](https://github.com/sindresorhus/image-
 
 Integration with [Multer](https://github.com/expressjs/multer) middleware.
 
-```
+```js
 const multer = require('multer');
 const temp_local_img_dir = path.join(__dirname, `/.temp_local_img_dir`);
 const upload = multer({ dest: temp_local_img_dir });
