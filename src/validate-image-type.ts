@@ -42,13 +42,20 @@ export function validateBufferMIMEType(buffer: Buffer, options: ValidateImageTyp
         Array.isArray(mimeTypes) && mimeTypes.every((mimeType) => mimeType.includes("/")),
         `Should be set an array of mimeType. e.g.) ['image/jpeg']`
     );
+    const allowSVG = mimeTypes.includes("image/svg+xml");
+    if (allowSVG && isSvg(buffer)) {
+        return {
+            ok: true,
+            error: undefined,
+        };
+    }
     const imageTypeResult = imageType(buffer);
     if (!imageTypeResult) {
         return {
             ok: false,
             error: new Error(
                 `This buffer is not supported image. allowMimeTypes: ${JSON.stringify(mimeTypes)}` +
-                    (options.originalFilename ? `, filename: ${options.originalFilename}` : "")
+                (options.originalFilename ? `, filename: ${options.originalFilename}` : "")
             ),
         };
     }
@@ -99,7 +106,7 @@ export function validateMIMEType(filePath: string, options: ValidateImageTypeOpt
                     ok: false,
                     error: new Error(
                         `This file is not svg. allowMimeTypes: ${JSON.stringify(mimeTypes)}` +
-                            (options.originalFilename ? `, filename: ${options.originalFilename}` : "")
+                        (options.originalFilename ? `, filename: ${options.originalFilename}` : "")
                     ),
                 };
             }
