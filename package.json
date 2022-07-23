@@ -35,7 +35,7 @@
     "test": "test"
   },
   "scripts": {
-    "build": "cross-env NODE_ENV=production tsc -p .",
+    "build": "tsc -p .",
     "clean": "rimraf lib/",
     "prepublish": "npm run --if-present build",
     "test": "mocha \"test/**/*.ts\"",
@@ -60,14 +60,13 @@
     "trailingComma": "none"
   },
   "dependencies": {
-    "image-type": "^4.1.0",
+    "file-type": "^16.5.4",
     "is-svg": "^4.2.1",
     "read-chunk": "^3.2.0"
   },
   "devDependencies": {
     "@types/mocha": "^9.1.1",
     "@types/node": "^18.0.6",
-    "cross-env": "^7.0.2",
     "lint-staged": "^13.0.3",
     "mocha": "^10.0.0",
     "prettier": "^2.7.1",

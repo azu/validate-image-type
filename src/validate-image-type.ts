@@ -1,19 +1,9 @@
 import assert from "assert";
-import imageType from "image-type";
 import readChunk from "read-chunk";
 import isSvg from "is-svg";
-import * as fs from "fs";
-const BINARY_READ_LENGTH = 24;
-const isBinary = (buffer: Buffer): boolean => {
-    for (let i = 0; i < BINARY_READ_LENGTH; i++) {
-        const characterCode = buffer[i];
-        if (characterCode === 65533 || characterCode <= 8) {
-            return true;
-        }
-    }
-    return false;
-};
-
+import * as fs from "fs/promises";
+import { imageType } from "./image-type";
+import { BINARY_READ_LENGTH, isBinary } from "./isBinary";
 export type ValidateImageTypeOptions = {
     /**
      * Original file name
@@ -33,10 +23,13 @@ export type ValidateImageResult = {
 };
 
 /**
- * Detect the image type of a Buffer or Uint8Array
+ * Detect the image type of Buffer or Uint8Array
  * This check is based on https://github.com/sindresorhus/image-type
  */
-export function validateBufferMIMEType(buffer: Buffer, options: ValidateImageTypeOptions): ValidateImageResult {
+export async function validateBufferMIMEType(
+    buffer: Buffer,
+    options: ValidateImageTypeOptions
+): Promise<ValidateImageResult> {
     const mimeTypes = options.allowMimeTypes;
     assert.ok(
         Array.isArray(mimeTypes) && mimeTypes.every((mimeType) => mimeType.includes("/")),
@@ -49,7 +42,7 @@ export function validateBufferMIMEType(buffer: Buffer, options: ValidateImageTyp
             error: undefined
         };
     }
-    const imageTypeResult = imageType(buffer);
+    const imageTypeResult = await imageType(buffer);
     if (!imageTypeResult) {
         return {
             ok: false,
@@ -89,9 +82,12 @@ export function validateBufferMIMEType(buffer: Buffer, options: ValidateImageTyp
  * }
  * ```
  */
-export function validateMIMEType(filePath: string, options: ValidateImageTypeOptions): ValidateImageResult {
+export async function validateMIMEType(
+    filePath: string,
+    options: ValidateImageTypeOptions
+): Promise<ValidateImageResult> {
     // Use head buffer for performance reason
-    const buffer = readChunk.sync(filePath, 0, BINARY_READ_LENGTH);
+    const buffer = await readChunk(filePath, 0, BINARY_READ_LENGTH);
     if (!isBinary(buffer)) {
         const mimeTypes = options.allowMimeTypes;
         // Handle SVG as special case
@@ -100,7 +96,7 @@ export function validateMIMEType(filePath: string, options: ValidateImageTypeOpt
         if (allowSVG) {
             // if the content is not binary, read all content and check it
             // Note: Require 128 bytes at least one
-            const content = fs.readFileSync(filePath, "utf-8");
+            const content = await fs.readFile(filePath, "utf-8");
             if (!isSvg(content)) {
                 return {
                     ok: false,

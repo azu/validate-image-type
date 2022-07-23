@@ -4,7 +4,7 @@ Check the image file of a Buffer/Uint8Array that matched expected image MIME-typ
 
 This library check the **file contents** instead of **file extensions** using following:
 
-- [sindresorhus/image-type: Detect the image type of a Buffer/Uint8Array](https://github.com/sindresorhus/image-type)
+- [sindresorhus/file-type: Detect the file type of a Buffer/Uint8Array/ArrayBuffer](https://github.com/sindresorhus/file-type)
 - [sindresorhus/is-svg: Check if a string or buffer is SVG](https://github.com/sindresorhus/is-svg)
 
 ## Features
@@ -22,7 +22,7 @@ Install with [npm](https://www.npmjs.com/):
 
 ```ts
 import { validateMIMEType } from "validate-image-type";
-const result = validateMIMEType("./image.png", {
+const result = await validateMIMEType("./image.png", {
     allowMimeTypes: ['image/jpeg', 'image/gif', 'image/png', 'image/svg+xml']
 });
 if (!result.ok) {
@@ -50,11 +50,17 @@ Integration with [Multer](https://github.com/expressjs/multer) middleware.
 const multer = require('multer');
 const temp_local_img_dir = path.join(__dirname, `/.temp_local_img_dir`);
 const upload = multer({ dest: temp_local_img_dir });
+const asyncWrapper = fn => {
+    return (req, res, next) => {
+        return fn(req, res, next).catch(next);
+    }
+};
+
 app.post(
   '/upload',
-  upload.single('image'),
-  (req, res, next) => {
-    const validationResult = validateMIMEType(req.file.path, {
+  upload.single('image'), 
+  asyncWrapper(async (req, res, next) => {
+    const validationResult = await validateMIMEType(req.file.path, {
       originalFilename: req.file.originalname,
       allowMimeTypes: ['image/jpeg', 'image/gif', 'image/png', 'image/svg+xml'],
     });
@@ -64,7 +70,7 @@ app.post(
     }
     // uploading task
     // ...
-  }
+  })
 );
 ```
 
