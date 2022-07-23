@@ -40,7 +40,26 @@ See following document about MimeType.
 
 Basic images file types and SVG(`image/svg+xml`).
 
-See `image-type`'s [Supported file types](https://github.com/sindresorhus/image-type#supported-file-types)
+    "jpg",
+    "png",
+    "gif",
+    "webp",
+    "flif",
+    "cr2",
+    "tif",
+    "bmp",
+    "jxr",
+    "psd",
+    "ico",
+    "bpg",
+    "jp2",
+    "jpm",
+    "jpx",
+    "heic",
+    "cur",
+    "dcm",
+    "svg"
+
 
 ## Examples
 
