@@ -46,7 +46,7 @@ export function validateBufferMIMEType(buffer: Buffer, options: ValidateImageTyp
     if (allowSVG && isSvg(buffer)) {
         return {
             ok: true,
-            error: undefined,
+            error: undefined
         };
     }
     const imageTypeResult = imageType(buffer);
@@ -55,8 +55,8 @@ export function validateBufferMIMEType(buffer: Buffer, options: ValidateImageTyp
             ok: false,
             error: new Error(
                 `This buffer is not supported image. allowMimeTypes: ${JSON.stringify(mimeTypes)}` +
-                (options.originalFilename ? `, filename: ${options.originalFilename}` : "")
-            ),
+                    (options.originalFilename ? `, filename: ${options.originalFilename}` : "")
+            )
         };
     }
     const isAllowed = mimeTypes.includes(imageTypeResult.mime);
@@ -67,12 +67,12 @@ export function validateBufferMIMEType(buffer: Buffer, options: ValidateImageTyp
                 `This buffer is disallowed image MimeType: ${imageTypeResult.mime}, allowMimeTypes: ${JSON.stringify(
                     mimeTypes
                 )}` + (options.originalFilename ? `,filename: ${options.originalFilename}` : "")
-            ),
+            )
         };
     }
     return {
         ok: true,
-        error: undefined,
+        error: undefined
     };
 }
 
@@ -106,12 +106,12 @@ export function validateMIMEType(filePath: string, options: ValidateImageTypeOpt
                     ok: false,
                     error: new Error(
                         `This file is not svg. allowMimeTypes: ${JSON.stringify(mimeTypes)}` +
-                        (options.originalFilename ? `, filename: ${options.originalFilename}` : "")
-                    ),
+                            (options.originalFilename ? `, filename: ${options.originalFilename}` : "")
+                    )
                 };
             }
             return {
-                ok: true,
+                ok: true
             };
         }
     }
