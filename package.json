@@ -60,19 +60,19 @@
     "trailingComma": "none"
   },
   "dependencies": {
-    "file-type": "^16.5.4",
-    "is-svg": "^4.2.1",
-    "read-chunk": "^3.2.0"
+    "file-type": "^18.5.0",
+    "is-svg": "^5.0.0",
+    "read-chunk": "^4.0.3"
   },
   "devDependencies": {
-    "@types/mocha": "^9.1.1",
-    "@types/node": "^18.0.6",
-    "lint-staged": "^13.0.3",
-    "mocha": "^10.0.0",
-    "prettier": "^2.7.1",
-    "rimraf": "^3.0.2",
+    "@types/mocha": "^10.0.3",
+    "@types/node": "^20.8.7",
+    "lint-staged": "^15.0.2",
+    "mocha": "^10.2.0",
+    "prettier": "^3.0.3",
+    "rimraf": "^5.0.5",
     "ts-node": "^10.9.1",
     "ts-node-test-register": "^10.0.0",
-    "typescript": "^4.7.4"
+    "typescript": "^5.2.2"
   }
 }
