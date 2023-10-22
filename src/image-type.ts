@@ -1,6 +1,4 @@
-import { fromBuffer } from "file-type";
-
-const imageExts = new Set([
+const supportedImageTypes = [
     "jpg",
     "png",
     "gif",
@@ -18,13 +16,17 @@ const imageExts = new Set([
     "jpx",
     "heic",
     "cur",
-    "dcm"
-]);
+    "dcm",
+    "avif"
+];
+export type SupportedImageTypes = (typeof supportedImageTypes)[number];
+const imageExts = new Set(supportedImageTypes);
 
-export const imageType = async (buffer: Buffer | Uint8Array | ArrayBuffer) => {
-    const ret = await fromBuffer(buffer);
+export const imageType = async (buffer: Buffer | Uint8Array | ArrayBuffer): Promise<SupportedImageTypes | null> => {
+    const { fileTypeFromBuffer } = await import("file-type");
+    const ret = await fileTypeFromBuffer(buffer);
     if (!ret) {
         return null;
     }
-    return imageExts.has(ret.ext) ? ret : null;
+    return imageExts.has(ret.ext) ? ret.mime : null;
 };
