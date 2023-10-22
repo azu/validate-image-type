@@ -16,7 +16,8 @@ const supportedImageTypes = [
     "jpx",
     "heic",
     "cur",
-    "dcm"
+    "dcm",
+    "avif"
 ];
 export type SupportedImageTypes = (typeof supportedImageTypes)[number];
 const imageExts = new Set(supportedImageTypes);
